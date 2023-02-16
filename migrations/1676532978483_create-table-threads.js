@@ -8,6 +8,10 @@ exports.up = (pgm) => {
       type: "VARCHAR(50)",
       primaryKey: true,
     },
+    title: {
+      type: "VARCHAR(50)",
+      notNull: true,
+    },
     content: {
       type: "TEXT",
       notNull: true,
@@ -21,8 +25,8 @@ exports.up = (pgm) => {
 };
 
 exports.down = (pgm) => {
-  pgm.dropTable("threads");
   pgm.dropConstraint("threads", "fk_threads.owner_users.id", {
     ifExists: true,
   });
+  pgm.dropTable("threads");
 };
