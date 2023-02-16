@@ -12,7 +12,7 @@ exports.up = (pgm) => {
       type: "VARCHAR(50)",
       notNull: true,
     },
-    content: {
+    body: {
       type: "TEXT",
       notNull: true,
     },
