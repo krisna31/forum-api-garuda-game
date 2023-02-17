@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 const pool = require("../../database/postgres/pool");
 const CommentRepository = require("../../../Domains/comments/CommentRepository");
 const CommentRepositoryPostgres = require("../CommentRepositoryPostgres");

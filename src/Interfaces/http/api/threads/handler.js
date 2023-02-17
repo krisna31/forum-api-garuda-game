@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 const AddThreadUseCase = require("../../../../Applications/use_case/AddThreadUseCase");
 const GetThreadByIdUseCase = require("../../../../Applications/use_case/GetThreadByIdUseCase");
 

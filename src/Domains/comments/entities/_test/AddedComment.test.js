@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 const AddedComment = require("../AddedComment");
 
 describe("a AddedComment entities", () => {
