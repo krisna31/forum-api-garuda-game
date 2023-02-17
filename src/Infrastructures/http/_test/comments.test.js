@@ -46,7 +46,7 @@ describe("end point add comment", () => {
       const responseJson = JSON.parse(response.payload);
       expect(response.statusCode).toEqual(404);
       expect(responseJson.status).toEqual("fail");
-      expect(responseJson.message).toEqual("thread tidak ada");
+      expect(responseJson.message).toEqual("thread tidak ditemukan");
     });
 
     it("should response 401 when request not contain access token", async () => {
@@ -106,7 +106,6 @@ describe("end point add comment", () => {
 
     it("should response 201 and persisted thread", async () => {
       // arrange
-      /* add comment payload */
       const requestPayload = {
         content: "ini comment",
       };
@@ -192,7 +191,7 @@ describe("end point add comment", () => {
       const responseJson = JSON.parse(response.payload);
       expect(response.statusCode).toEqual(404);
       expect(responseJson.status).toEqual("fail");
-      expect(responseJson.message).toEqual("Komentar pada thread ini tidak ditemukan");
+      expect(responseJson.message).toEqual("Komentar pada thread ini tidak ada");
     });
 
     it("should response 403 when user is not owner", async () => {
