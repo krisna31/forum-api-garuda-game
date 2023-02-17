@@ -38,12 +38,12 @@ describe("GetThreadUseCase", () => {
       },
     ];
 
-    const mappedComments = expectedComments.map(({ is_deleted: deletedComment, ...otherProperties }) => otherProperties);
-    const mappedReplies = expectedReplies.map(({ comment_id, is_deleted, ...otherProperties }) => otherProperties);
+    const mappedComments = expectedComments.map(({ is_deleted: deletedComment, ...rest }) => rest)[0];
+    const mappedReplies = expectedReplies.map(({ comment_id, is_deleted, ...rest }) => rest);
 
     const expectedCommentsAndReplies = [
       {
-        ...mappedComments[0],
+        ...mappedComments,
         replies: mappedReplies,
       },
     ];
@@ -110,12 +110,12 @@ describe("GetThreadUseCase", () => {
       },
     ];
 
-    const mappedComments = expectedComments.map(({ is_deleted: deletedComment, ...otherProperties }) => otherProperties);
-    const mappedReplies = expectedReplies.map(({ comment_id, is_deleted, ...otherProperties }) => otherProperties);
+    const mappedComments = expectedComments.map(({ is_deleted: deletedComment, ...rest }) => rest)[0];
+    const mappedReplies = expectedReplies.map(({ comment_id, is_deleted, ...rest }) => rest);
 
     const expectedCommentsAndReplies = [
       {
-        ...mappedComments[0],
+        ...mappedComments,
         replies: mappedReplies,
       },
     ];
