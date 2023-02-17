@@ -3,21 +3,23 @@
 exports.shorthands = undefined;
 
 exports.up = (pgm) => {
-  pgm.createTable("threads", {
+  pgm.createTable("comments", {
     id: {
       type: "VARCHAR(50)",
       primaryKey: true,
     },
-    title: {
+    thread_id: {
       type: "VARCHAR(50)",
       notNull: true,
-    },
-    body: {
-      type: "TEXT",
-      notNull: true,
+      references: '"threads"',
+      onDelete: "cascade",
     },
     owner: {
       type: "VARCHAR(50)",
+      notNull: true,
+    },
+    content: {
+      type: "TEXT",
       notNull: true,
     },
     date: {
@@ -25,9 +27,15 @@ exports.up = (pgm) => {
       notNull: true,
       default: pgm.func("current_timestamp"),
     },
+    is_deleted: {
+      type: "BOOLEAN",
+      notNull: true,
+      default: false,
+    },
   });
+  pgm.addConstraint("comments", "fk_comments.owner_users.id", "FOREIGN KEY(owner) REFERENCES users(id) ON DELETE CASCADE");
 };
 
 exports.down = (pgm) => {
-  pgm.dropTable("threads");
+  pgm.dropTable("comments");
 };
