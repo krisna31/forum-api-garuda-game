@@ -7,13 +7,13 @@ const UsersTableTestHelper = require("../../../../tests/UsersTableTestHelper");
 
 describe("/threads endpoint", () => {
   afterAll(async () => {
-    await UsersTableTestHelper.cleanTable();
-    await ThreadTableTestHelper.cleanTable();
     await pool.end();
   });
-
-  // afterEach(async () => {
-  // });
+  
+  afterEach(async () => {
+    await UsersTableTestHelper.cleanTable();
+    await ThreadTableTestHelper.cleanTable();
+  });
 
   describe("when POST /threads", () => {
     it("should response 401 when request missing authentication", async () => {
