@@ -1,4 +1,4 @@
-/* eslint-disable max-len */
+
 const NewReply = require("../../Domains/replies/entities/NewReply");
 const AddedReply = require("../../Domains/replies/entities/AddedReply");
 
