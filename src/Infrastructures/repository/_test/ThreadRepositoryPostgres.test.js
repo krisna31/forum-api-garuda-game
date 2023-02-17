@@ -5,6 +5,8 @@ const NotFoundError = require("../../../Commons/exceptions/NotFoundError");
 const NewThread = require("../../../Domains/threads/entities/NewThread");
 const AddedThread = require("../../../Domains/threads/entities/AddedThread");
 const pool = require("../../database/postgres/pool");
+const CommentsTableTestHelper = require("../../../../tests/CommentTestTableHelper");
+const RepliesTableTestHelper = require("../../../../tests/RepliesTableTestHelper");
 
 describe("ThreadRepositoryPostgres", () => {
   afterEach(async () => {
@@ -105,6 +107,7 @@ describe("ThreadRepositoryPostgres", () => {
         id: "thread-123",
         title: "Update Honkai",
         body: "Total ukuran update pada tahun 2023 feb kali ini sebesar 2.2.GB",
+        date: new Date("2023-08-17T00:00:00.000Z"),
         username: "dicoding",
       });
     });
@@ -131,6 +134,36 @@ describe("ThreadRepositoryPostgres", () => {
 
       // Action & Assert
       await expect(threadRepositoryPostgres.verifyAvailableThread("thread-123")).resolves.not.toThrowError(NotFoundError);
+    });
+  });
+
+  describe("getRepliesByThreadId function", () => {
+    it("should return replies correctly", async () => {
+      // Arrange
+      await UserTableTestHelper.addUser({
+        username: "dicoding",
+        password: "secret_password",
+      });
+      await ThreadTableTestHelper.addThread({ id: "thread-123" });
+      await CommentsTableTestHelper.addComment({ id: "comment-123", threadId: "thread-123" });
+      await RepliesTableTestHelper.addReply({ id: "reply-123", commentId: "comment-123" });
+
+      const threadRepositoryPostgres = new ThreadRepositoryPostgres(pool, {});
+
+      // Action
+      const replies = await threadRepositoryPostgres.getRepliesByThreadId("thread-123");
+
+      // Assert
+      expect(replies).toHaveLength(1);
+      expect(replies[0]).toStrictEqual({
+        id: "reply-123",
+        comment_id: "comment-123",
+        username: "dicoding",
+        date: new Date("2023-08-17T00:00:00.000Z"),
+        content: "ini adalah balasan",
+        owner: "user-123",
+        is_deleted: false,
+      });
     });
   });
 });

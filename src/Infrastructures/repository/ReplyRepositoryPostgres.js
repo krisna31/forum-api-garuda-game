@@ -40,7 +40,7 @@ class ReplyRepositoryPostgres extends RepliesRepository {
     const { rowCount } = await this._pool.query(query);
 
     if (!rowCount) {
-      throw new NotFoundError("Balasan tidak ditemukan");
+      throw new NotFoundError("Balasan tidak ada");
     }
 
     return rowCount;
@@ -70,7 +70,7 @@ class ReplyRepositoryPostgres extends RepliesRepository {
     const { rowCount } = await this._pool.query(query);
 
     if (!rowCount) {
-      throw new NotFoundError("Balasan tidak ditemukan");
+      throw new NotFoundError("Balasan tidak ada");
     }
 
     return rowCount;

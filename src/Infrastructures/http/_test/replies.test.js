@@ -109,7 +109,7 @@ describe("end point add reply", () => {
       const responseJson = JSON.parse(response.payload);
       expect(response.statusCode).toEqual(404);
       expect(responseJson.status).toEqual("fail");
-      expect(responseJson.message).toEqual("Komentar pada thread ini tidak ada");
+      expect(responseJson.message).toEqual("Komentar pada thread ini tidak ditemukan");
     });
 
     it("should response 400 when request payload not contain needed property", async () => {
@@ -301,7 +301,7 @@ describe("end point add reply", () => {
       const responseJson = JSON.parse(response.payload);
       expect(response.statusCode).toEqual(404);
       expect(responseJson.status).toEqual("fail");
-      expect(responseJson.message).toEqual("Balasan tidak ditemukan");
+      expect(responseJson.message).toEqual("Balasan tidak ada");
     });
 
     it("should response 404 when comment not found", async () => {
@@ -343,7 +343,7 @@ describe("end point add reply", () => {
       const responseJson = JSON.parse(response.payload);
       expect(response.statusCode).toEqual(404);
       expect(responseJson.status).toEqual("fail");
-      expect(responseJson.message).toEqual("Balasan tidak ditemukan");
+      expect(responseJson.message).toEqual("Balasan tidak ada");
     });
 
     it("should response 404 when reply not found", async () => {
@@ -385,7 +385,7 @@ describe("end point add reply", () => {
       const responseJson = JSON.parse(response.payload);
       expect(response.statusCode).toEqual(404);
       expect(responseJson.status).toEqual("fail");
-      expect(responseJson.message).toEqual("Balasan tidak ditemukan");
+      expect(responseJson.message).toEqual("Balasan tidak ada");
     });
 
     it("should response 401 when user not owner", async () => {

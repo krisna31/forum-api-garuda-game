@@ -181,7 +181,7 @@ describe("end point add comment", () => {
       // action
       const response = await server.inject({
         method: "DELETE",
-        url: `/threads/thread-not-found/comments/${commentId}`,
+        url: `/threads/xxx/comments/${commentId}`,
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -191,7 +191,7 @@ describe("end point add comment", () => {
       const responseJson = JSON.parse(response.payload);
       expect(response.statusCode).toEqual(404);
       expect(responseJson.status).toEqual("fail");
-      expect(responseJson.message).toEqual("Komentar pada thread ini tidak ada");
+      expect(responseJson.message).toEqual("Komentar pada thread ini tidak ditemukan");
     });
 
     it("should response 403 when user is not owner", async () => {
