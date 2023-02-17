@@ -19,14 +19,17 @@ exports.up = (pgm) => {
     owner: {
       type: "VARCHAR(50)",
       notNull: true,
+      references: '"users"',
+      onDelete: "cascade",
+    },
+    date: {
+      type: "timestamp",
+      notNull: true,
+      default: pgm.func("current_timestamp"),
     },
   });
-  pgm.addConstraint("threads", "fk_threads.owner_users.id", "FOREIGN KEY(owner) REFERENCES users(id) ON DELETE CASCADE");
 };
 
 exports.down = (pgm) => {
-  pgm.dropConstraint("threads", "fk_threads.owner_users.id", {
-    ifExists: true,
-  });
   pgm.dropTable("threads");
 };
