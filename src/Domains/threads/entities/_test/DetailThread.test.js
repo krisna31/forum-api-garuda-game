@@ -30,7 +30,7 @@ describe("DetailThread entities", () => {
       id: "thread-123",
       title: "new title",
       body: "new body",
-      date: "2023-02-16T17:00:00.000Z",
+      date: "2023-08-17T00:00:00.000Z",
       username: "user-1234",
     };
 

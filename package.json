@@ -12,7 +12,8 @@
     "migrate": "node-pg-migrate",
     "migrate:fresh": "npm run migrate down && npm run migrate up",
     "migrate:test": "node-pg-migrate -f config/database/test.json",
-    "migrate:test:fresh": "npm run migrate:test down && npm run migrate:test up"
+    "migrate:test:fresh": "npm run migrate:test down && npm run migrate:test up",
+    "lint:fix": "eslint --fix --ext .js ."
   },
   "keywords": [],
   "author": "",
