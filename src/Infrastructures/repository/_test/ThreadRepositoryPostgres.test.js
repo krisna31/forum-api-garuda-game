@@ -36,9 +36,9 @@ describe("ThreadRepositoryPostgres", () => {
 
       // Action
       const addedThread = await threadRepositoryPostgres.addThread(newThread);
+      const threads = await ThreadTableTestHelper.findThreadsById("thread-321");
 
       // Assert
-      const threads = await ThreadTableTestHelper.findThreadsById("thread-321");
       expect(addedThread).toStrictEqual(
         new AddedThread({
           id: "thread-321",
@@ -47,35 +47,6 @@ describe("ThreadRepositoryPostgres", () => {
         })
       );
       expect(threads).toHaveLength(1);
-    });
-
-    it("should return added thread correctly", async () => {
-      // Arrange
-      await UserTableTestHelper.addUser({
-        username: "dicoding",
-        password: "secret_password",
-      });
-      const newThreadPayload = {
-        title: "Dicoding Indonesia",
-        body: "Dicoding Indonesia adalah platform belajar pemrograman online terbaik di Indonesia",
-        owner: "user-123",
-      };
-      const newThread = new NewThread(newThreadPayload);
-
-      const fakeIdGenerator = () => "321";
-      const threadRepositoryPostgres = new ThreadRepositoryPostgres(pool, fakeIdGenerator);
-
-      // Action
-      const addedThread = await threadRepositoryPostgres.addThread(newThread);
-
-      // Assert
-      expect(addedThread).toStrictEqual(
-        new AddedThread({
-          id: "thread-321",
-          title: "Dicoding Indonesia",
-          owner: "user-123",
-        })
-      );
     });
   });
 
