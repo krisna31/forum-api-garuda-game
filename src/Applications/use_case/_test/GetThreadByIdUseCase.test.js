@@ -21,6 +21,8 @@ describe("GetThreadUseCase", () => {
     const expectedComments = [
       {
         id: "comment-123",
+        threadId: "thread-123",
+        owner: "user-123",
         username: "31",
         date: "2023",
         content: "ini isi komentar",
@@ -34,13 +36,18 @@ describe("GetThreadUseCase", () => {
         content: "ini isi balasan",
         date: "2023",
         username: "krisna",
+        owner: "user-123",
         comment_id: "comment-123",
         is_deleted: false,
       },
     ];
 
-    const mappedComments = expectedComments.map(({ is_deleted: deletedComment, ...rest }) => rest)[0];
-    const mappedReplies = expectedReplies.map(({ comment_id, is_deleted, ...rest }) => rest);
+    const mappedComments = expectedComments.map((
+      { is_deleted: deletedComment, threadId, owner, ...rest }
+      ) => rest)[0];
+    const mappedReplies = expectedReplies.map((
+      { owner, comment_id, is_deleted, ...rest }
+      ) => rest);
 
     const expectedCommentsAndReplies = [
       {
