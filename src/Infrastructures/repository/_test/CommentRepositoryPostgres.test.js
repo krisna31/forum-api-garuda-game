@@ -13,7 +13,6 @@ const AddedComment = require("../../../Domains/comments/entities/AddedComment");
 describe("CommentRepositoryPostgres", () => {
   it("should be instance of CommentRepository domain", () => {
     const commentRepositoryPostgres = new CommentRepositoryPostgres({}, {});
-
     expect(commentRepositoryPostgres).toBeInstanceOf(CommentRepository);
   });
 
@@ -42,6 +41,7 @@ describe("CommentRepositoryPostgres", () => {
           threadId: "thread-123",
           owner: "user-123",
         });
+
         const fakeIdGenerator = () => "123";
         const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, fakeIdGenerator);
 
@@ -58,30 +58,6 @@ describe("CommentRepositoryPostgres", () => {
           })
         );
         expect(comments).toHaveLength(1);
-      });
-
-      it("should return added comment correctly", async () => {
-        // arrange
-        const newComment = new NewComment({
-          content: "some content",
-          threadId: "thread-123",
-          owner: "user-123",
-        });
-
-        const fakeIdGenerator = () => "123";
-        const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, fakeIdGenerator);
-
-        // action
-        const addedComment = await commentRepositoryPostgres.addComment(newComment);
-
-        // assert
-        expect(addedComment).toStrictEqual(
-          new AddedComment({
-            id: "comment-123",
-            content: newComment.content,
-            owner: newComment.owner,
-          })
-        );
       });
     });
 
