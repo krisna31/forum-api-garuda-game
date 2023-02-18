@@ -43,5 +43,6 @@ describe("DetailThread entities", () => {
     expect(detailThread.title).toEqual(payload.title);
     expect(detailThread.body).toEqual(payload.body);
     expect(detailThread.date).toEqual(payload.date);
+    expect(detailThread.username).toEqual(payload.username);
   });
 });
