@@ -27,8 +27,8 @@ describe("AddReplyUseCase", () => {
     const mockRepliesRepository = new RepliesRepository();
 
     /** mocking needed function */
-    mockThreadRepository.verifyAvailableThread = jest.fn().mockImplementation(() => Promise.resolve());
-    mockCommentRepository.verifyAvailableCommentInThread = jest.fn().mockImplementation(() => Promise.resolve());
+    mockThreadRepository.verifyAvailableThread = jest.fn().mockImplementation(() => Promise.resolve(1));
+    mockCommentRepository.verifyAvailableCommentInThread = jest.fn().mockImplementation(() => Promise.resolve(1));
     mockRepliesRepository.addReply = jest.fn().mockImplementation(() =>
       Promise.resolve(
         new AddedReply({

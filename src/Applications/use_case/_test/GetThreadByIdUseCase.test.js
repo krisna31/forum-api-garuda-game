@@ -20,6 +20,8 @@ describe("GetThreadUseCase", () => {
     const expectedComments = [
       {
         id: "comment-123",
+        threadId: 'thread-123',
+        owner: "user-123",
         username: "31",
         date: "2023",
         content: "ini isi komentar",
@@ -31,6 +33,7 @@ describe("GetThreadUseCase", () => {
       {
         id: "reply-123",
         content: "ini isi balasan",
+        owner: "user-123",
         date: "2023",
         username: "krisna",
         comment_id: "comment-123",

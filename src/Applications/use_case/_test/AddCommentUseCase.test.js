@@ -16,8 +16,6 @@ describe("AddCommentUseCase", () => {
     const expectedAddedComment = new AddedComment({
       id: "comment-123",
       content: useCasePayload.content,
-      threadId: useCasePayload.threadId,
-      date: "2023",
       owner: useCasePayload.owner,
     });
 
@@ -26,14 +24,12 @@ describe("AddCommentUseCase", () => {
     const mockThreadRepository = new ThreadRepository();
 
     /** mocking needed function */
-    mockThreadRepository.verifyAvailableThread = jest.fn().mockImplementation(() => Promise.resolve());
+    mockThreadRepository.verifyAvailableThread = jest.fn().mockImplementation(() => Promise.resolve(1));
     mockCommentRepository.addComment = jest.fn().mockImplementation(() =>
       Promise.resolve(
         new AddedComment({
           id: "comment-123",
           content: useCasePayload.content,
-          threadId: useCasePayload.threadId,
-          date: "2023-08-17T00:00:00.000Z",
           owner: useCasePayload.owner,
         })
       )
