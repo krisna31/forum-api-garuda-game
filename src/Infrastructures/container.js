@@ -308,6 +308,10 @@ container.register([
           name: "threadRepository",
           internal: ThreadRepository.name,
         },
+        {
+          name: "repliesRepository",
+          internal: RepliesRepository.name,
+        },
       ],
     },
   },
