@@ -93,7 +93,7 @@ describe("ThreadRepositoryPostgres", () => {
       await expect(threadRepositoryPostgres.verifyAvailableThread("thread-1")).rejects.toThrowError(NotFoundError);
     });
 
-    it("should not throw NotFoundError when thread found", async () => {
+    it("should not throw NotFoundError when thread found and return rowcount must be 1", async () => {
       // Arrange
       await UserTableTestHelper.addUser({
         username: "dicoding",
@@ -103,8 +103,12 @@ describe("ThreadRepositoryPostgres", () => {
       const threadRepositoryPostgres = new ThreadRepositoryPostgres(pool, {});
       await ThreadTableTestHelper.addThread({ id: "thread-123" });
 
-      // Action & Assert
+      // Action
+      const rowCount = await threadRepositoryPostgres.verifyAvailableThread("thread-123");
+
+      // Assert
       await expect(threadRepositoryPostgres.verifyAvailableThread("thread-123")).resolves.not.toThrowError(NotFoundError);
+      expect(rowCount).toEqual(1);
     });
   });
 
