@@ -62,9 +62,38 @@ describe("GetThreadUseCase", () => {
     const mockReplyRepository = new ReplyRepository();
 
     /** mocking needed function */
-    mockThreadRepository.getThreadById = jest.fn().mockImplementation(() => Promise.resolve(expectedThread));
-    mockCommentRepository.getCommentsByThreadId = jest.fn().mockImplementation(() => Promise.resolve(expectedComments));
-    mockReplyRepository.getRepliesByThreadId = jest.fn().mockImplementation(() => Promise.resolve(expectedReplies));
+    mockThreadRepository.getThreadById = jest.fn().mockImplementation(() => 
+    Promise.resolve({
+      id: "thread-123",
+      title: "ini judul thread",
+      body: "ini isi thread",
+      date: "2023",
+      username: "31",
+    }));
+    mockCommentRepository.getCommentsByThreadId = jest.fn().mockImplementation(() => 
+    Promise.resolve([
+      {
+        id: "comment-123",
+        threadId: "thread-123",
+        owner: "user-123",
+        username: "31",
+        date: "2023",
+        content: "ini isi komentar",
+        is_deleted: false,
+      },
+    ]));
+    mockReplyRepository.getRepliesByThreadId = jest.fn().mockImplementation(() => 
+    Promise.resolve([
+      {
+        id: "reply-123",
+        content: "ini isi balasan",
+        date: "2023",
+        username: "krisna",
+        owner: "user-123",
+        comment_id: "comment-123",
+        is_deleted: false,
+      },
+    ]));
 
     const mockGetThreadUseCase = new GetThreadUseCase({
       commentRepository: mockCommentRepository,
