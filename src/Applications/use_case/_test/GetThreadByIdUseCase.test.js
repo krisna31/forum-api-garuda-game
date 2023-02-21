@@ -10,7 +10,15 @@ describe("GetThreadUseCase", () => {
       threadId: "thread-123",
     };
 
-    const expectedComments = [
+    const mockAddedThread = {
+      id: "thread-123",
+      title: "ini judul thread",
+      body: "ini isi thread",
+      date: "2023",
+      username: "31",
+    }
+
+    const mockAddedComments = [
       {
         id: "comment-123",
         threadId: "thread-123",
@@ -20,9 +28,9 @@ describe("GetThreadUseCase", () => {
         content: "ini isi komentar",
         is_deleted: false,
       },
-    ];
+    ]
 
-    const expectedReplies = [
+    const mockAddedReplies = [
       {
         id: "reply-123",
         content: "ini isi balasan",
@@ -32,21 +40,7 @@ describe("GetThreadUseCase", () => {
         comment_id: "comment-123",
         is_deleted: false,
       },
-    ];
-
-    const mappedComments = expectedComments.map((
-      { is_deleted: deletedComment, threadId, owner, ...rest }
-      ) => rest)[0];
-    const mappedReplies = expectedReplies.map((
-      { owner, comment_id, is_deleted, ...rest }
-      ) => rest);
-
-    const expectedCommentsAndReplies = [
-      {
-        ...mappedComments,
-        replies: mappedReplies,
-      },
-    ];
+    ]
 
     /** creating dependency of use case */
     const mockThreadRepository = new ThreadRepository();
@@ -55,37 +49,11 @@ describe("GetThreadUseCase", () => {
 
     /** mocking needed function */
     mockThreadRepository.getThreadById = jest.fn().mockImplementation(() => 
-    Promise.resolve({
-      id: "thread-123",
-      title: "ini judul thread",
-      body: "ini isi thread",
-      date: "2023",
-      username: "31",
-    }));
+    Promise.resolve(mockAddedThread));
     mockCommentRepository.getCommentsByThreadId = jest.fn().mockImplementation(() => 
-    Promise.resolve([
-      {
-        id: "comment-123",
-        threadId: "thread-123",
-        owner: "user-123",
-        username: "31",
-        date: "2023",
-        content: "ini isi komentar",
-        is_deleted: false,
-      },
-    ]));
+    Promise.resolve(mockAddedComments));
     mockReplyRepository.getRepliesByThreadId = jest.fn().mockImplementation(() => 
-    Promise.resolve([
-      {
-        id: "reply-123",
-        content: "ini isi balasan",
-        date: "2023",
-        username: "krisna",
-        owner: "user-123",
-        comment_id: "comment-123",
-        is_deleted: false,
-      },
-    ]));
+    Promise.resolve(mockAddedReplies));
 
     const mockGetThreadUseCase = new GetThreadUseCase({
       commentRepository: mockCommentRepository,
@@ -103,7 +71,20 @@ describe("GetThreadUseCase", () => {
       body: "ini isi thread",
       date: "2023",
       username: "31",
-      comments: expectedCommentsAndReplies,
+      comments: [
+        {
+          id: 'comment-123',
+          username: '31',
+          date: '2023',
+          content: 'ini isi komentar',
+          replies: [{
+            id: "reply-123",
+            content: "ini isi balasan",
+            date: "2023",
+            username: "krisna",
+          }],
+        },
+      ],
     });
     expect(mockThreadRepository.getThreadById).toBeCalledWith(useCasePayload.threadId);
     expect(mockCommentRepository.getCommentsByThreadId).toBeCalledWith(useCasePayload.threadId);
@@ -116,7 +97,15 @@ describe("GetThreadUseCase", () => {
       threadId: "thread-123",
     };
 
-    const expectedComments = [
+    const mockAddedThread = {
+      id: "thread-123",
+      title: "ini judul thread",
+      body: "ini isi thread",
+      date: "2023",
+      username: "31",
+    }
+
+    const mockAddedComments = [
       {
         id: "comment-123",
         username: "31",
@@ -126,7 +115,7 @@ describe("GetThreadUseCase", () => {
       },
     ];
 
-    const expectedReplies = [
+    const mockAddedReplies = [
       {
         id: "reply-123",
         content: "**balasan telah dihapus**",
@@ -134,16 +123,6 @@ describe("GetThreadUseCase", () => {
         username: "krisna",
         comment_id: "comment-123",
         is_deleted: true,
-      },
-    ];
-
-    const mappedComments = expectedComments.map(({ is_deleted: deletedComment, ...rest }) => rest)[0];
-    const mappedReplies = expectedReplies.map(({ comment_id, is_deleted, ...rest }) => rest);
-
-    const expectedCommentsAndReplies = [
-      {
-        ...mappedComments,
-        replies: mappedReplies,
       },
     ];
 
@@ -153,32 +132,9 @@ describe("GetThreadUseCase", () => {
     const mockReplyRepository = new ReplyRepository();
 
     /** mocking needed function */
-    mockThreadRepository.getThreadById = jest.fn().mockImplementation(() => Promise.resolve({
-        id: "thread-123",
-        title: "ini judul thread",
-        body: "ini isi thread",
-        date: "2023",
-        username: "31",
-      }));
-    mockCommentRepository.getCommentsByThreadId = jest.fn().mockImplementation(() => Promise.resolve([
-      {
-      id: "comment-123",
-      username: "31",
-      date: "2023",
-      content: "**komentar telah dihapus**",
-      is_deleted: true,
-    },
-  ]));
-    mockReplyRepository.getRepliesByThreadId = jest.fn().mockImplementation(() => Promise.resolve([
-      {
-        id: "reply-123",
-        content: "**balasan telah dihapus**",
-        date: "2023",
-        username: "krisna",
-        comment_id: "comment-123",
-        is_deleted: true,
-      },
-    ]));
+    mockThreadRepository.getThreadById = jest.fn().mockImplementation(() => Promise.resolve(mockAddedThread));
+    mockCommentRepository.getCommentsByThreadId = jest.fn().mockImplementation(() => Promise.resolve(mockAddedComments));
+    mockReplyRepository.getRepliesByThreadId = jest.fn().mockImplementation(() => Promise.resolve(mockAddedReplies));
 
     const mockGetThreadUseCase = new GetThreadUseCase({
       commentRepository: mockCommentRepository,
@@ -196,7 +152,20 @@ describe("GetThreadUseCase", () => {
       body: "ini isi thread",
       date: "2023",
       username: "31",
-      comments: expectedCommentsAndReplies,
+      comments: [
+        {
+          id: "comment-123",
+          username: "31",
+          date: "2023",
+          content: "**komentar telah dihapus**",
+          replies: [{
+            id: "reply-123",
+            content: "**balasan telah dihapus**",
+            date: "2023",
+            username: "krisna",
+          }],
+        },
+      ],
     });
     expect(mockThreadRepository.getThreadById).toBeCalledWith(useCasePayload.threadId);
     expect(mockCommentRepository.getCommentsByThreadId).toBeCalledWith(useCasePayload.threadId);
