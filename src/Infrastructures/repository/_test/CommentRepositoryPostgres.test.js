@@ -118,16 +118,25 @@ describe("CommentRepositoryPostgres", () => {
 
         let commentDetails = await commentRepositoryPostgres.getCommentsByThreadId("thread-123");
 
-        commentDetails = commentDetails.map((comment) => ({
-          id: comment.id,
-          content: comment.content,
-          date: comment.date,
-          username: comment.username,
-        }));
-
-        expect(commentDetails).toEqual([
-          { ...firstComment, username: "SomeUser" },
-          { ...secondComment, username: "SomeUser" },
+        expect(commentDetails).toStrictEqual([
+          {
+            "content": "first comment",
+            "date": new Date("2023-08-17T00:00:00.000Z"),
+            "id": "comment-123",
+            "is_deleted": false,
+            "owner": "user-123",
+            "thread_id": "thread-123",
+            "username": "SomeUser"
+          },
+          {
+            "content": "second comment",
+            "date": new Date("2023-08-17T01:00:00.000Z"),
+            "id": "comment-345",
+            "is_deleted": false,
+            "owner": "user-123",
+            "thread_id": "thread-123",
+            "username": "SomeUser"
+          }
         ]);
       });
 

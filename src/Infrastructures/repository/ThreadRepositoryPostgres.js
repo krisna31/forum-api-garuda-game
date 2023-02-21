@@ -61,6 +61,7 @@ class ThreadRepositoryPostgres extends ThreadRepository {
 
     return rowCount;
   }
+
 }
 
 module.exports = ThreadRepositoryPostgres;

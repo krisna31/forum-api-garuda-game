@@ -9,6 +9,7 @@ const ReplyRepositoryPostgres = require("../ReplyRepositoryPostgres");
 const CommentsTableTestHelper = require("../../../../tests/CommentTestTableHelper");
 const UsersTableTestHelper = require("../../../../tests/UsersTableTestHelper");
 const NotFoundError = require("../../../Commons/exceptions/NotFoundError");
+const ThreadTableTestHelper = require("../../../../tests/ThreadTableTestHelper");
 
 describe("ReplyRepositoryPostgres", () => {
   it("should be instance of ReplyRepository domain", () => {
@@ -33,9 +34,9 @@ describe("ReplyRepositoryPostgres", () => {
     });
 
     afterAll(async () => {
-      await RepliesTableTestHelper.cleanTable();
       await CommentsTableTestHelper.cleanTable();
       await ThreadsTableTestHelper.cleanTable();
+      await RepliesTableTestHelper.cleanTable();
       await UsersTableTestHelper.cleanTable();
       await pool.end();
     });
@@ -155,34 +156,27 @@ describe("ReplyRepositoryPostgres", () => {
         expect(rowCount).toEqual(1);
       });
     });
-  });
 
-  describe("getRepliesByThreadId function", () => {
-    it("should return replies correctly", async () => {
-      // Arrange
-      await UserTableTestHelper.addUser({
-        username: "dicoding",
-        password: "secret_password",
-      });
-      await ThreadTableTestHelper.addThread({ id: "thread-123" });
-      await CommentsTableTestHelper.addComment({ id: "comment-123", threadId: "thread-123" });
-      await RepliesTableTestHelper.addReply({ id: "reply-123", commentId: "comment-123" });
-
-      const replyRepositoryPostgres = new ReplyRepositoryPostgres(pool, {});
-      
-      // Action
-      const replies = await replyRepositoryPostgres.getRepliesByThreadId("thread-123");
-
-      // Assert
-      expect(replies).toHaveLength(1);
-      expect(replies[0]).toStrictEqual({
-        id: "reply-123",
-        comment_id: "comment-123",
-        username: "dicoding",
-        date: new Date("2023-08-17T00:00:00.000Z"),
-        content: "ini adalah balasan",
-        owner: "user-123",
-        is_deleted: false,
+    describe("getRepliesByThreadId function", () => {
+      it("should return replies correctly", async () => {
+        // Arrange
+        await RepliesTableTestHelper.addReply({ id: "reply-123", commentId: "comment-123" });
+        const replyRepositoryPostgres = new ReplyRepositoryPostgres(pool, {});
+        
+        // Action
+        const replies = await replyRepositoryPostgres.getRepliesByThreadId("thread-123");
+  
+        // Assert
+        expect(replies).toHaveLength(1);
+        expect(replies[0]).toStrictEqual({
+          id: "reply-123",
+          comment_id: "comment-123",
+          username: "krisna",
+          date: new Date("2023-08-17T00:00:00.000Z"),
+          content: "ini adalah balasan",
+          owner: "user-123",
+          is_deleted: false,
+        });
       });
     });
   });
