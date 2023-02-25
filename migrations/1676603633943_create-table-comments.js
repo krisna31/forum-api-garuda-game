@@ -3,39 +3,39 @@
 exports.shorthands = undefined;
 
 exports.up = (pgm) => {
-  pgm.createTable("comments", {
+  pgm.createTable('comments', {
     id: {
-      type: "VARCHAR(50)",
+      type: 'VARCHAR(50)',
       primaryKey: true,
     },
     thread_id: {
-      type: "VARCHAR(50)",
+      type: 'VARCHAR(50)',
       notNull: true,
       references: '"threads"',
-      onDelete: "cascade",
+      onDelete: 'cascade',
     },
     owner: {
-      type: "VARCHAR(50)",
+      type: 'VARCHAR(50)',
       notNull: true,
     },
     content: {
-      type: "TEXT",
+      type: 'TEXT',
       notNull: true,
     },
     date: {
-      type: "timestamp",
+      type: 'timestamp',
       notNull: true,
-      default: pgm.func("current_timestamp"),
+      default: pgm.func('current_timestamp'),
     },
     is_deleted: {
-      type: "BOOLEAN",
+      type: 'BOOLEAN',
       notNull: true,
       default: false,
     },
   });
-  pgm.addConstraint("comments", "fk_comments.owner_users.id", "FOREIGN KEY(owner) REFERENCES users(id) ON DELETE CASCADE");
+  pgm.addConstraint('comments', 'fk_comments.owner_users.id', 'FOREIGN KEY(owner) REFERENCES users(id) ON DELETE CASCADE');
 };
 
 exports.down = (pgm) => {
-  pgm.dropTable("comments");
+  pgm.dropTable('comments');
 };

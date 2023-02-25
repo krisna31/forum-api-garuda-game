@@ -3,31 +3,31 @@
 exports.shorthands = undefined;
 
 exports.up = (pgm) => {
-  pgm.createTable("threads", {
+  pgm.createTable('threads', {
     id: {
-      type: "VARCHAR(50)",
+      type: 'VARCHAR(50)',
       primaryKey: true,
     },
     title: {
-      type: "VARCHAR(50)",
+      type: 'VARCHAR(50)',
       notNull: true,
     },
     body: {
-      type: "TEXT",
+      type: 'TEXT',
       notNull: true,
     },
     owner: {
-      type: "VARCHAR(50)",
+      type: 'VARCHAR(50)',
       notNull: true,
     },
     date: {
-      type: "timestamp",
+      type: 'timestamp',
       notNull: true,
-      default: pgm.func("current_timestamp"),
+      default: pgm.func('current_timestamp'),
     },
   });
 };
 
 exports.down = (pgm) => {
-  pgm.dropTable("threads");
+  pgm.dropTable('threads');
 };

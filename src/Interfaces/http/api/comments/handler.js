@@ -1,5 +1,5 @@
-const AddCommentUseCase = require("../../../../Applications/use_case/AddCommentUseCase");
-const DeleteCommentUseCase = require("../../../../Applications/use_case/DeleteCommentUseCase");
+const AddCommentUseCase = require('../../../../Applications/use_case/AddCommentUseCase');
+const DeleteCommentUseCase = require('../../../../Applications/use_case/DeleteCommentUseCase');
 
 class CommentsHandler {
   constructor(container) {
@@ -15,7 +15,7 @@ class CommentsHandler {
     });
 
     const response = h.response({
-      status: "success",
+      status: 'success',
       data: {
         addedComment,
       },
@@ -35,7 +35,7 @@ class CommentsHandler {
     await deleteComment.execute(useCasePayload);
 
     return {
-      status: "success",
+      status: 'success',
     };
   }
 }

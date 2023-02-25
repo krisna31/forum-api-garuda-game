@@ -1,5 +1,5 @@
-const AddReplyUseCase = require("../../../../Applications/use_case/AddReplyUseCase");
-const DeleteReplyUseCase = require("../../../../Applications/use_case/DeleteReplyUseCase");
+const AddReplyUseCase = require('../../../../Applications/use_case/AddReplyUseCase');
+const DeleteReplyUseCase = require('../../../../Applications/use_case/DeleteReplyUseCase');
 
 class RepliesHandler {
   constructor(container) {
@@ -21,7 +21,7 @@ class RepliesHandler {
     });
 
     const response = h.response({
-      status: "success",
+      status: 'success',
       data: {
         addedReply,
       },
@@ -44,7 +44,7 @@ class RepliesHandler {
     });
 
     return {
-      status: "success",
+      status: 'success',
     };
   }
 }

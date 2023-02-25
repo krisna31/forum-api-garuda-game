@@ -1,7 +1,7 @@
-const AuthorizationError = require("../../Commons/exceptions/AuthorizationError");
-const NotFoundError = require("../../Commons/exceptions/NotFoundError");
-const AddedReply = require("../../Domains/replies/entities/AddedReply");
-const RepliesRepository = require("../../Domains/replies/RepliesRepository");
+const AuthorizationError = require('../../Commons/exceptions/AuthorizationError');
+const NotFoundError = require('../../Commons/exceptions/NotFoundError');
+const AddedReply = require('../../Domains/replies/entities/AddedReply');
+const RepliesRepository = require('../../Domains/replies/RepliesRepository');
 
 class ReplyRepositoryPostgres extends RepliesRepository {
   constructor(pool, idGenerator) {
@@ -16,7 +16,7 @@ class ReplyRepositoryPostgres extends RepliesRepository {
     const date = new Date().toISOString();
 
     const query = {
-      text: "INSERT INTO replies VALUES($1, $2, $3, $4, $5) RETURNING id",
+      text: 'INSERT INTO replies VALUES($1, $2, $3, $4, $5) RETURNING id',
       values: [id, commentId, owner, content, date],
     };
 
@@ -40,7 +40,7 @@ class ReplyRepositoryPostgres extends RepliesRepository {
     const { rowCount } = await this._pool.query(query);
 
     if (!rowCount) {
-      throw new NotFoundError("Balasan tidak ada");
+      throw new NotFoundError('Balasan tidak ada');
     }
 
     return rowCount;
@@ -48,14 +48,14 @@ class ReplyRepositoryPostgres extends RepliesRepository {
 
   async verifyReplyOwner(id, owner) {
     const query = {
-      text: "SELECT 1 FROM replies WHERE id = $1 AND owner = $2",
+      text: 'SELECT 1 FROM replies WHERE id = $1 AND owner = $2',
       values: [id, owner],
     };
 
     const { rowCount } = await this._pool.query(query);
 
     if (!rowCount) {
-      throw new AuthorizationError("Anda tidak berhak mengakses resource ini");
+      throw new AuthorizationError('Anda tidak berhak mengakses resource ini');
     }
 
     return rowCount;
@@ -63,14 +63,14 @@ class ReplyRepositoryPostgres extends RepliesRepository {
 
   async deleteReplyById(id) {
     const query = {
-      text: "UPDATE replies SET is_deleted=TRUE WHERE id=$1",
+      text: 'UPDATE replies SET is_deleted=TRUE WHERE id=$1',
       values: [id],
     };
 
     const { rowCount } = await this._pool.query(query);
 
     if (!rowCount) {
-      throw new NotFoundError("Balasan tidak ada");
+      throw new NotFoundError('Balasan tidak ada');
     }
 
     return rowCount;

@@ -1,19 +1,19 @@
-const AddThreadUseCase = require("../AddThreadUseCase");
-const ThreadRepository = require("../../../Domains/threads/ThreadRepository");
-const AddedThread = require("../../../Domains/threads/entities/AddedThread");
-const NewThread = require("../../../Domains/threads/entities/NewThread");
+const AddThreadUseCase = require('../AddThreadUseCase');
+const ThreadRepository = require('../../../Domains/threads/ThreadRepository');
+const AddedThread = require('../../../Domains/threads/entities/AddedThread');
+const NewThread = require('../../../Domains/threads/entities/NewThread');
 
-describe("AddThreadUseCase", () => {
-  it("should orchestrating the add thread action correctly", async () => {
+describe('AddThreadUseCase', () => {
+  it('should orchestrating the add thread action correctly', async () => {
     // Arrange
     const useCasePayload = {
-      title: "Title Thread",
-      body: "Body Thread",
-      owner: "User-123",
+      title: 'Title Thread',
+      body: 'Body Thread',
+      owner: 'User-123',
     };
 
     const expectedAddedThread = new AddedThread({
-      id: "thread-123",
+      id: 'thread-123',
       title: useCasePayload.title,
       owner: useCasePayload.owner,
     });
@@ -22,15 +22,13 @@ describe("AddThreadUseCase", () => {
     const mockThreadRepository = new ThreadRepository();
 
     /** mocking needed function */
-    mockThreadRepository.addThread = jest.fn().mockImplementation(() =>
-      Promise.resolve(
-        new AddedThread({
-          id: "thread-123",
-          title: useCasePayload.title,
-          owner: useCasePayload.owner,
-        })
-      )
-    );
+    mockThreadRepository.addThread = jest.fn().mockImplementation(() => Promise.resolve(
+      new AddedThread({
+        id: 'thread-123',
+        title: useCasePayload.title,
+        owner: useCasePayload.owner,
+      }),
+    ));
 
     const addThreadUseCase = new AddThreadUseCase({
       threadRepository: mockThreadRepository,
@@ -46,7 +44,7 @@ describe("AddThreadUseCase", () => {
         title: useCasePayload.title,
         body: useCasePayload.body,
         owner: useCasePayload.owner,
-      })
+      }),
     );
   });
 });

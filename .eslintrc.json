@@ -12,6 +12,10 @@
   "rules": {
     "linebreak-style": "off",
     "no-console": "off",
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "no-undef": "off",
+    "no-unused-vars": "off",
+    "max-len": "off",
+    "class-methods-use-this": "off"
   }
 }

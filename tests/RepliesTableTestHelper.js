@@ -1,10 +1,12 @@
 /* istanbul ignore file */
-const pool = require("../src/Infrastructures/database/postgres/pool");
+const pool = require('../src/Infrastructures/database/postgres/pool');
 
 const RepliesTableTestHelper = {
-  async addReply({ id = "reply-123", commentId = "comment-123", owner = "user-123", content = "ini adalah balasan", date = new Date("2023-08-17T00:00:00.000Z") }) {
+  async addReply({
+    id = 'reply-123', commentId = 'comment-123', owner = 'user-123', content = 'ini adalah balasan', date = new Date('2023-08-17T00:00:00.000Z'),
+  }) {
     const query = {
-      text: "INSERT INTO replies VALUES($1, $2, $3, $4, $5)",
+      text: 'INSERT INTO replies VALUES($1, $2, $3, $4, $5)',
       values: [id, commentId, owner, content, date],
     };
 
@@ -13,7 +15,7 @@ const RepliesTableTestHelper = {
 
   async getReplyById(id) {
     const query = {
-      text: "SELECT * FROM replies WHERE id = $1",
+      text: 'SELECT * FROM replies WHERE id = $1',
       values: [id],
     };
 
@@ -24,14 +26,14 @@ const RepliesTableTestHelper = {
 
   async deleteReplyById(id) {
     const query = {
-      text: "UPDATE replies SET is_deleted=TRUE WHERE id=$1",
+      text: 'UPDATE replies SET is_deleted=TRUE WHERE id=$1',
       values: [id],
     };
     await pool.query(query);
   },
 
   async cleanTable() {
-    await pool.query("DELETE FROM replies WHERE 1=1");
+    await pool.query('DELETE FROM replies WHERE 1=1');
   },
 };
 

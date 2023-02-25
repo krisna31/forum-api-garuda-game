@@ -1,14 +1,14 @@
-const RepliesRepository = require("../../../Domains/replies/RepliesRepository");
-const DeleteReplyUseCase = require("../DeleteReplyUseCase");
+const RepliesRepository = require('../../../Domains/replies/RepliesRepository');
+const DeleteReplyUseCase = require('../DeleteReplyUseCase');
 
-describe("DeleteReplyUseCase", () => {
-  it("should orchestrating the delete reply action correctly", async () => {
+describe('DeleteReplyUseCase', () => {
+  it('should orchestrating the delete reply action correctly', async () => {
     // Arrange
     const useCasePayload = {
-      replyId: "reply-123",
-      commentId: "comment-123",
-      threadId: "thread-123",
-      owner: "user-123",
+      replyId: 'reply-123',
+      commentId: 'comment-123',
+      threadId: 'thread-123',
+      owner: 'user-123',
     };
 
     const mockRepliesRepository = new RepliesRepository();
