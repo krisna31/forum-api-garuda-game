@@ -46,7 +46,7 @@ class LikesRepositoryPostgres extends LikesRepository {
     };
 
     const result = await this._pool.query(query);
-    return parseInt(result.rows[0].count);
+    return parseInt(result.rows[0].count, 10);
   }
 }
 

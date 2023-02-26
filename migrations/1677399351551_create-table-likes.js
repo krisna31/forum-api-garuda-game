@@ -2,7 +2,7 @@
 
 exports.shorthands = undefined;
 
-exports.up = pgm => {
+exports.up = (pgm) => {
   pgm.createTable('likes', {
     id: {
       type: 'VARCHAR(50)',
@@ -23,6 +23,6 @@ exports.up = pgm => {
   pgm.addConstraint('likes', 'fk_likes.comment_id_comments.id', 'FOREIGN KEY(comment_id) REFERENCES comments(id) ON DELETE CASCADE');
 };
 
-exports.down = pgm => {
+exports.down = (pgm) => {
   pgm.dropTable('likes');
 };

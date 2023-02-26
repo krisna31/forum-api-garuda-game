@@ -161,7 +161,7 @@ container.register([
         },
       ],
     },
-  }
+  },
 ]);
 
 // registering use cases
@@ -336,7 +336,7 @@ container.register([
         {
           name: 'likesRepository',
           internal: LikesRepository.name,
-        }
+        },
       ],
     },
   },
@@ -357,10 +357,10 @@ container.register([
         {
           name: 'likeRepository',
           internal: LikesRepository.name,
-        }
+        },
       ],
-    }
-  }
+    },
+  },
 ]);
 
 module.exports = container;

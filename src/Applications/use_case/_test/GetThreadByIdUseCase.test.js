@@ -53,13 +53,13 @@ describe('GetThreadUseCase', () => {
     mockThreadRepository.getThreadById = jest.fn().mockImplementation(() => Promise.resolve(mockAddedThread));
     mockCommentRepository.getCommentsByThreadId = jest.fn().mockImplementation(() => Promise.resolve(mockAddedComments));
     mockReplyRepository.getRepliesByThreadId = jest.fn().mockImplementation(() => Promise.resolve(mockAddedReplies));
-    mockLikesRepository.getLikeCount = jest.fn().mockImplementation(() => Promise.resolve(1))
+    mockLikesRepository.getLikeCount = jest.fn().mockImplementation(() => Promise.resolve(1));
 
     const mockGetThreadUseCase = new GetThreadUseCase({
       commentRepository: mockCommentRepository,
       threadRepository: mockThreadRepository,
       repliesRepository: mockReplyRepository,
-      likesRepository: mockLikesRepository
+      likesRepository: mockLikesRepository,
     });
 
     // Action
@@ -91,9 +91,9 @@ describe('GetThreadUseCase', () => {
     expect(mockThreadRepository.getThreadById).toBeCalledWith(useCasePayload.threadId);
     expect(mockCommentRepository.getCommentsByThreadId).toBeCalledWith(useCasePayload.threadId);
     expect(mockReplyRepository.getRepliesByThreadId).toBeCalledWith(useCasePayload.threadId);
-    mockAddedComments.map(comment => {
+    mockAddedComments.map((comment) => {
       expect(mockLikesRepository.getLikeCount).toBeCalledWith(comment.id);
-    })
+    });
   });
 
   it('should not display deleted comment', async () => {
@@ -141,7 +141,7 @@ describe('GetThreadUseCase', () => {
     mockThreadRepository.getThreadById = jest.fn().mockImplementation(() => Promise.resolve(mockAddedThread));
     mockCommentRepository.getCommentsByThreadId = jest.fn().mockImplementation(() => Promise.resolve(mockAddedComments));
     mockReplyRepository.getRepliesByThreadId = jest.fn().mockImplementation(() => Promise.resolve(mockAddedReplies));
-    mockLikesRepository.getLikeCount = jest.fn().mockImplementation(() => Promise.resolve(1))
+    mockLikesRepository.getLikeCount = jest.fn().mockImplementation(() => Promise.resolve(1));
 
     const mockGetThreadUseCase = new GetThreadUseCase({
       commentRepository: mockCommentRepository,
@@ -179,8 +179,8 @@ describe('GetThreadUseCase', () => {
     expect(mockThreadRepository.getThreadById).toBeCalledWith(useCasePayload.threadId);
     expect(mockCommentRepository.getCommentsByThreadId).toBeCalledWith(useCasePayload.threadId);
     expect(mockReplyRepository.getRepliesByThreadId).toBeCalledWith(useCasePayload.threadId);
-    mockAddedComments.map(comment => {
+    mockAddedComments.map((comment) => {
       expect(mockLikesRepository.getLikeCount).toBeCalledWith(comment.id);
-    })
+    });
   });
 });

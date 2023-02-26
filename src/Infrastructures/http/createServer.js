@@ -66,7 +66,7 @@ const createServer = async (container) => {
     {
       plugin: likes,
       options: { container },
-    }
+    },
   ]);
 
   server.route({
