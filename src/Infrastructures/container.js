@@ -333,6 +333,10 @@ container.register([
           name: 'repliesRepository',
           internal: RepliesRepository.name,
         },
+        {
+          name: 'likesRepository',
+          internal: LikesRepository.name,
+        }
       ],
     },
   },

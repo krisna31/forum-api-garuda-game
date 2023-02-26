@@ -105,6 +105,7 @@ const createServer = async (container) => {
         status: 'error',
         message: 'terjadi kegagalan pada server kami',
       });
+      console.log(translatedError.message)
       newResponse.code(500);
       return newResponse;
     }
