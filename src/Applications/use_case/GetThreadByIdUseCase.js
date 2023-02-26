@@ -1,8 +1,11 @@
 class getThreadByIdUseCase {
-  constructor({ commentRepository, threadRepository, repliesRepository }) {
+  constructor({
+    commentRepository, threadRepository, repliesRepository, likesRepository,
+  }) {
     this._commentRepository = commentRepository;
     this._threadRepository = threadRepository;
     this._repliesRepository = repliesRepository;
+    this._likesRepository = likesRepository;
   }
 
   async execute(threadId) {
@@ -25,10 +28,19 @@ class getThreadByIdUseCase {
         })),
     }));
 
+    comments = await this._addLikeCountToComment(comments);
+
     return {
       ...thread,
       comments,
     };
+  }
+
+  async _addLikeCountToComment(comments) {
+    for (const comment of comments) {
+      comment.likeCount = await this._likesRepository.getLikeCount(comment.id);
+    }
+    return comments;
   }
 }
 

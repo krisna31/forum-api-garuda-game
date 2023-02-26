@@ -16,6 +16,10 @@
     "no-undef": "off",
     "no-unused-vars": "off",
     "max-len": "off",
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "no-restricted-syntax": "off",
+    "no-await-in-loop": "off",
+    "no-unused-expressions": "off",
+    "array-callback-return": "off"
   }
 }
